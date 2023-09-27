@@ -134,6 +134,24 @@ extension CollectionView: UIViewRepresentable {
     public func updateUIView(_ uiView: UICollectionView, context: Context) {
         // Check if this calls after initial loading
         updateDataSource(context.coordinator)
+        
+        // Update selected cells
+        // TODO: add a check that selection is even enabled
+        let newSelectedIndexPaths = selection
+            .compactMap { context.coordinator.dataSource.indexPath(for: $0) }
+        let currentlySelectedIndexPaths = uiView.indexPathsForSelectedItems
+        
+        if let diff = currentlySelectedIndexPaths?.difference(from: newSelectedIndexPaths),
+           !diff.isEmpty {
+            for d in diff {
+                switch d {
+                case .insert(_, let indexPath, _):
+                    uiView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+                case .remove(_, let indexPath, _):
+                    uiView.deselectItem(at: indexPath, animated: true)
+                }
+            }
+        }
     }
     
     private func updateDataSource(_ coordinator: Coordinator) {
