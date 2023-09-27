@@ -49,7 +49,7 @@ extension CollectionView: UIViewRepresentable {
         context.coordinator.setUpCollectionView(collectionView)
         
         collectionView.delegate = context.coordinator
-//        collectionView.prefetchDataSource = context.coordinator
+        collectionView.prefetchDataSource = context.coordinator
         return collectionView
     }
     
