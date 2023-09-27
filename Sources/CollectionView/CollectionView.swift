@@ -23,7 +23,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
     var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
     
-    init(
+    public init(
         collection: Binding<[Section: [Item]]>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
