@@ -35,7 +35,11 @@ extension CollectionView {
         // MARK: - UICollectionViewDataSourcePrefetching
         
         public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-            
+            parent.prefetchItemsHandler?(indexPaths)
+        }
+        
+        public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+            parent.cancelPrefetchingHandler?(indexPaths)
         }
     }
 }
