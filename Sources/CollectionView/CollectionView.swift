@@ -163,6 +163,7 @@ extension CollectionView: UIViewRepresentable {
                 snapshot.appendItems(items, toSection: section)
             }
             
+            // Animate if there were already items added.
             dataSource.apply(snapshot, animatingDifferences: !dataSource.snapshot().itemIdentifiers.isEmpty)
         }
     }
