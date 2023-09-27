@@ -75,6 +75,40 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         self.cellConfigurationHandler = cellConfigurationHandler
     }
     
+    // MARK: - View Modifier Properties
+    
+    public typealias CollectionViewBoolCallback = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Bool
+    public typealias CollectionViewVoidCallback = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Void
+    
+    // Single Selection
+    
+    internal var shouldSelectItemHandler: CollectionViewBoolCallback? = nil
+    internal var shouldDeselectItemHandler: CollectionViewBoolCallback? = nil
+    
+    // Multiple Selection
+    
+    internal var shouldBeginMultipleSelectionInteractionHandler: CollectionViewBoolCallback? = nil
+    internal var didBeginMultipleSelectionInteractionHandler: CollectionViewVoidCallback? = nil
+    internal var didEndMultipleSelectionInteractionHandler: (() -> Void)? = nil
+    
+    // Highlighting
+    
+    internal var shouldHighlightItemHandler: CollectionViewBoolCallback? = nil
+    internal var didHighlightItemHandler: CollectionViewVoidCallback? = nil
+    internal var didUnhighlightItemHandler: CollectionViewVoidCallback? = nil
+    
+    // Displaying Cells
+    
+    internal var willDisplayCellHandler: ((_ cell: UICollectionViewCell, _ indexPath: IndexPath) -> Void)? = nil
+    internal var didEndDisplayingCellHandler: ((_ cell: UICollectionViewCell, _ indexPath: IndexPath) -> Void)? = nil
+    
+    // Context Menu
+    
+    internal var willDisplayContextMenu: ((_ configuration: UIContextMenuConfiguration, UIContextMenuInteractionAnimating?) -> Void)? = nil
+    internal var willEndContextMenuInteraction: ((_ configuration: UIContextMenuConfiguration, UIContextMenuInteractionAnimating?) -> Void)? = nil
+    internal var willPerformPreviewAction: ((_ configuration: UIContextMenuConfiguration, UIContextMenuInteractionAnimating?) -> Void)? = nil
+    internal var contextMenuConfigHandler: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> UIContextMenuConfiguration?)? = nil
+    
     // Prefetch
     
     internal var prefetchItemsHandler: ((_ indexPaths: [IndexPath]) -> Void)? = nil
