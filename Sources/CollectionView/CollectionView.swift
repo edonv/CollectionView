@@ -74,6 +74,9 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         self.backgroundConfiguration = backgroundConfiguration
         self.cellConfigurationHandler = cellConfigurationHandler
     }
+    
+    // Prefetch
+    
     internal var prefetchItemsHandler: ((_ indexPaths: [IndexPath]) -> Void)? = nil
     internal var cancelPrefetchingHandler: ((_ indexPaths: [IndexPath]) -> Void)? = nil
 }
