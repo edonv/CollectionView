@@ -1,5 +1,5 @@
 import XCTest
-@testable import CollectionView
+//@testable import CollectionView
 
 final class CollectionViewTests: XCTestCase {
     func testExample() throws {
