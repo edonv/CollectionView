@@ -20,6 +20,8 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     
     @Binding public var collection: ItemCollection
     @Binding public var selection: Set<Item>
+    var singleSelection: Bool
+    var multipleSelection: Bool
     var layout: CollectionLayout
     var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
     var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
@@ -35,12 +37,41 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     ) {
         self._collection = collection
         self._selection = selection
+        self.singleSelection = true
+        self.multipleSelection = true
         self.layout = layout
         self.contentConfiguration = contentConfiguration
         self.backgroundConfiguration = backgroundConfiguration
         self.cellConfigurationHandler = cellConfigurationHandler
     }
     
+    public init(
+        collection: Binding<ItemCollection>,
+        selection: Binding<Item?>?,
+        layout: CollectionLayout,
+        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
+        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
+        cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
+    ) {
+        self._collection = collection
+        
+        if let selection {
+            self._selection = .init(get: {
+                if let item = selection.wrappedValue { [item] } else { [] }
+            }, set: { selectedItems in
+                selection.wrappedValue = selectedItems.first
+            })
+        } else {
+            self._selection = .constant([])
+        }
+        
+        self.singleSelection = selection != nil
+        self.multipleSelection = false
+        self.layout = layout
+        self.contentConfiguration = contentConfiguration
+        self.backgroundConfiguration = backgroundConfiguration
+        self.cellConfigurationHandler = cellConfigurationHandler
+    }
     internal var prefetchItemsHandler: ((_ indexPaths: [IndexPath]) -> Void)? = nil
     internal var cancelPrefetchingHandler: ((_ indexPaths: [IndexPath]) -> Void)? = nil
 }
@@ -55,6 +86,9 @@ extension CollectionView: UIViewRepresentable {
         
         collectionView.delegate = context.coordinator
         collectionView.prefetchDataSource = context.coordinator
+        collectionView.allowsSelection = singleSelection
+        collectionView.allowsMultipleSelection = multipleSelection
+        
         return collectionView
     }
     
