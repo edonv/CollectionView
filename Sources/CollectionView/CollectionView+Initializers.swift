@@ -11,6 +11,7 @@ import SwiftUI
 
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)
 extension CollectionView {
+    /// SwiftUI cell, multiple select
     public init<Content>(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -25,6 +26,7 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    /// SwiftUI cell, single/no select
     public init<Content>(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>?,
@@ -39,6 +41,7 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    /// SwiftUI cell with SwiftUI background, multiple select
     public init<Content, Background>(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -57,6 +60,7 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    /// SwiftUI cell with SwiftUI background, single/no select
     public init<Content, Background>(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>?,
@@ -75,6 +79,7 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    /// SwiftUI cell with ShapeStyle background, multiple select
     public init<Content, S>(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -91,6 +96,7 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    /// SwiftUI cell with ShapeStyle background, single/no select
     public init<Content, S>(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>?,
@@ -111,6 +117,7 @@ extension CollectionView {
 // MARK: - UICollectionLayoutListConfiguration
 
 extension CollectionView where CollectionLayout == UICollectionViewCompositionalLayout, ContentConfiguration == UIListContentConfiguration {
+    /// list cells, multiple select
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -131,6 +138,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
                   cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    /// list cells, single/no select
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>?,

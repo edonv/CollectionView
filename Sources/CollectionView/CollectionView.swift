@@ -27,6 +27,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
     var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
     
+    /// Standard init, multiple select
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -45,6 +46,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         self.cellConfigurationHandler = cellConfigurationHandler
     }
     
+    /// Standard init, single/no select
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>?,
