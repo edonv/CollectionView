@@ -75,3 +75,59 @@ extension CollectionView: UIViewRepresentable {
         Coordinator(self)
     }
 }
+
+private struct TestView: View {
+    enum Sections: Hashable {
+        case main
+    }
+    
+    @State
+    var items = [Sections.main: ["String 1", "String 2", "String 3", "String 4"]]
+    
+    var body: some View {
+        NavigationView {
+            CollectionView(collection: $items,
+                           selection: .constant([]),
+                           listAppearance: .sidebar,
+                           listConfigurationHandler: { config in
+                config.headerMode = .firstItemInSection
+            },
+                           contentConfiguration: { indexPath, string in
+                
+                if indexPath.item > 0 {
+                    var config = UIListContentConfiguration.sidebarCell()
+                    config.image = UIImage(systemName: "speaker.wave.3.fill")
+                    config.imageProperties.cornerRadius = 40
+                    config.text = string
+                    config.secondaryText = string
+                    return config
+                } else {
+                    var config = UIListContentConfiguration.sidebarHeader()
+                    config.text = string
+                    return config
+                }
+            }, backgroundConfiguration: { indexPath, _ in
+                if indexPath.item > 0 {
+                    .listSidebarCell()
+                } else {
+                    .listGroupedHeaderFooter()
+                }
+            }, cellConfigurationHandler: { cell, _, _ in
+                
+            })
+            .ignoresSafeArea()
+            .navigationTitle("Test")
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    Button("Test") {
+                        items[.main]?.append("Test \(items[.main]?.count ?? 0)")
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Preview("SwiftUI") {
+    TestView()
+}
