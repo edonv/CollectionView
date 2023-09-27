@@ -12,7 +12,7 @@ import SwiftUI
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)
 extension CollectionView {
     public init<Content>(
-        collection: Binding<[Section: [Item]]>,
+        collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
@@ -26,7 +26,7 @@ extension CollectionView {
     }
     
     public init<Content, Background>(
-        collection: Binding<[Section: [Item]]>,
+        collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
@@ -44,7 +44,7 @@ extension CollectionView {
     }
     
     public init<Content, S>(
-        collection: Binding<[Section: [Item]]>,
+        collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
@@ -64,7 +64,7 @@ extension CollectionView {
 
 extension CollectionView where CollectionLayout == UICollectionViewCompositionalLayout, ContentConfiguration == UIListContentConfiguration {
     public init(
-        collection: Binding<[Section: [Item]]>,
+        collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,

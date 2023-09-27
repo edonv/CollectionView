@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OrderedCollections
 
 // TODO: add sections
 // TODO: make the collectionviewcell
@@ -13,10 +14,11 @@ import SwiftUI
 public struct CollectionView<Section, Item, CollectionLayout, ContentConfiguration> 
     where Section: Sendable & Hashable, Item: Sendable & Hashable, CollectionLayout: UICollectionViewLayout, ContentConfiguration: UIContentConfiguration {
     
+    public typealias ItemCollection = OrderedDictionary<Section, [Item]>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
-    @Binding public var collection: [Section: [Item]]
+    @Binding public var collection: ItemCollection
     @Binding public var selection: Set<Item>
     var layout: CollectionLayout
     var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
@@ -24,7 +26,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
     
     public init(
-        collection: Binding<[Section: [Item]]>,
+        collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
@@ -85,7 +87,7 @@ private struct TestView: View {
     }
     
     @State
-    var items = [Sections.main: ["String 1", "String 2", "String 3", "String 4"]]
+    var items: OrderedDictionary = [Sections.main: ["String 1", "String 2", "String 3", "String 4"]]
     
     var body: some View {
         NavigationView {
