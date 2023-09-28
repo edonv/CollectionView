@@ -136,21 +136,22 @@ extension CollectionView: UIViewRepresentable {
         // Check if this calls after initial loading
         updateDataSource(context.coordinator)
         
-        // Update selected cells
-        // TODO: add a check that selection is even enabled
-        let newSelectedIndexPaths = Set(selection
-            .compactMap { context.coordinator.dataSource.indexPath(for: $0) })
-        let currentlySelectedIndexPaths = Set(uiView.indexPathsForSelectedItems ?? [])
-        
-        if newSelectedIndexPaths != currentlySelectedIndexPaths {
-            let removed = currentlySelectedIndexPaths.subtracting(newSelectedIndexPaths)
-            removed.forEach {
-                uiView.deselectItem(at: $0, animated: true)
-            }
+        // Update selected cells (if selection is enabled)
+        if singleSelection || multipleSelection {
+            let newSelectedIndexPaths = Set(selection
+                .compactMap { context.coordinator.dataSource.indexPath(for: $0) })
+            let currentlySelectedIndexPaths = Set(uiView.indexPathsForSelectedItems ?? [])
             
-            let added = newSelectedIndexPaths.subtracting(currentlySelectedIndexPaths)
-            added.forEach {
-                uiView.selectItem(at: $0, animated: true, scrollPosition: .centeredVertically)
+            if newSelectedIndexPaths != currentlySelectedIndexPaths {
+                let removed = currentlySelectedIndexPaths.subtracting(newSelectedIndexPaths)
+                removed.forEach {
+                    uiView.deselectItem(at: $0, animated: true)
+                }
+                
+                let added = newSelectedIndexPaths.subtracting(currentlySelectedIndexPaths)
+                added.forEach {
+                    uiView.selectItem(at: $0, animated: true, scrollPosition: .centeredVertically)
+                }
             }
         }
     }
