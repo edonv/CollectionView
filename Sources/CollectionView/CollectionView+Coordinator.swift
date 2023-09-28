@@ -16,7 +16,7 @@ extension CollectionView {
             self.parent = parent
         }
         
-        func setUpCollectionView(_ collectionView: UICollectionView) {
+        internal func setUpCollectionView(_ collectionView: UICollectionView) {
             let contentConfiguration = parent.contentConfiguration
             let backgroundConfiguration = parent.backgroundConfiguration
             let cellConfigurationHandler = parent.cellConfigurationHandler
