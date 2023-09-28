@@ -142,7 +142,7 @@ extension CollectionView {
     
     public func contextMenu<Preview: View>(
         menuIdentifier: NSCopying? = nil,
-        previewProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> Preview)? = nil,
+        previewProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> Preview?)? = nil,
         actionProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint, [UIMenuElement]) -> UIMenu?)? = nil
     ) -> CollectionView {
         var new = self
@@ -163,7 +163,7 @@ extension CollectionView {
     
     public func contextMenu(
         menuIdentifier: NSCopying? = nil,
-        previewProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> UIViewController)? = nil,
+        previewProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> UIViewController?)? = nil,
         actionProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint, [UIMenuElement]) -> UIMenu?)? = nil
     ) -> CollectionView {
         var new = self
