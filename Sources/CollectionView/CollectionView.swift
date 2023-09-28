@@ -38,7 +38,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     /// An optional closure for configuring properties of each item's cell.
     ///
     /// One possible use can be to set the cell's [`configurationUpdateHandler`] (https://developer.apple.com/documentation/uikit/uicollectionviewcell/3751733-configurationupdatehandler) property.
-    internal var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
+    public private(set) var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
     
     /// Creates a collection view that allows users to select multiple items.
     ///
