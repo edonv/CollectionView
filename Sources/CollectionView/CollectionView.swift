@@ -21,7 +21,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     private var singleSelection: Bool
     private var multipleSelection: Bool
     
-    @Binding internal var collection: ItemCollection
+    @Binding internal var data: ItemCollection
     @Binding internal var selection: Set<Item>
     internal var layout: CollectionLayout
     internal var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
@@ -37,7 +37,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) {
-        self._collection = collection
+        self._data = collection
         self._selection = selection
         self.singleSelection = true
         self.multipleSelection = true
@@ -56,7 +56,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) {
-        self._collection = collection
+        self._data = collection
         
         if let selection {
             self._selection = .init(get: {
@@ -159,8 +159,8 @@ extension CollectionView: UIViewRepresentable {
         if let dataSource = coordinator.dataSource {
             var snapshot: DataSourceSnapshot = .init()
             
-            snapshot.appendSections(Array(collection.keys))
-            for (section, items) in collection {
+            snapshot.appendSections(Array(data.keys))
+            for (section, items) in data {
                 snapshot.appendItems(items, toSection: section)
             }
             
