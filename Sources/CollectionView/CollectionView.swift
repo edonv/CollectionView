@@ -51,14 +51,14 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) {
-        self._data = collection
+        self._data = data
         self._selection = selection
         self.singleSelection = true
         self.multipleSelection = true
@@ -79,14 +79,14 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) {
-        self._data = collection
+        self._data = data
         
         if let selection {
             self._selection = .init(get: {
@@ -215,7 +215,7 @@ private struct TestView: View {
     
     var body: some View {
         NavigationView {
-            CollectionView(collection: $items,
+            CollectionView($items,
                            selection: .constant([]),
                            listAppearance: .sidebar,
                            listConfigurationHandler: { config in

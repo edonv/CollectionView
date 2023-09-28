@@ -21,13 +21,13 @@ extension CollectionView {
     ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content>(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, ContentConfiguration == UIHostingConfiguration<Content, EmptyView> {
-        self.init(collection: collection, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
+        self.init(data, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
             UIHostingConfiguration {
                 cellContent(indexPath, item)
             }
@@ -44,13 +44,13 @@ extension CollectionView {
     ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content>(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, ContentConfiguration == UIHostingConfiguration<Content, EmptyView> {
-        self.init(collection: collection, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
+        self.init(data, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
             UIHostingConfiguration {
                 cellContent(indexPath, item)
             }
@@ -68,14 +68,14 @@ extension CollectionView {
     ///   - cellBackground: The contents of the SwiftUI hierarchy to be shown inside the background of the cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, Background>(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, Background: View, ContentConfiguration == UIHostingConfiguration<Content, Background> {
-        self.init(collection: collection, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
+        self.init(data, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
             UIHostingConfiguration {
                 cellContent(indexPath, item)
             }
@@ -96,14 +96,14 @@ extension CollectionView {
     ///   - cellBackground: The contents of the SwiftUI hierarchy to be shown inside the background of the cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, Background>(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, Background: View, ContentConfiguration == UIHostingConfiguration<Content, Background> {
-        self.init(collection: collection, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
+        self.init(data, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
             UIHostingConfiguration {
                 cellContent(indexPath, item)
             }
@@ -124,14 +124,14 @@ extension CollectionView {
     ///   - cellBackground: The shape style to be used as the background of the cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, S>(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellBackground: S,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle, ContentConfiguration == UIHostingConfiguration<Content, _UIHostingConfigurationBackgroundView<S>> {
-        self.init(collection: collection, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
+        self.init(data, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
             UIHostingConfiguration {
                 cellContent(indexPath, item)
             }
@@ -150,14 +150,14 @@ extension CollectionView {
     ///   - cellBackground: The shape style to be used as the background of the cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, S>(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellBackground: S,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle, ContentConfiguration == UIHostingConfiguration<Content, _UIHostingConfigurationBackgroundView<S>> {
-        self.init(collection: collection, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
+        self.init(data, selection: selection, layout: layout, contentConfiguration: { indexPath, item in
             UIHostingConfiguration {
                 cellContent(indexPath, item)
             }
@@ -181,7 +181,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
@@ -192,7 +192,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
         
-        self.init(collection: collection,
+        self.init(data,
                   selection: selection,
                   layout: UICollectionViewCompositionalLayout.list(using: listConfig),
                   contentConfiguration: contentConfiguration,
@@ -212,7 +212,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
-        collection: Binding<ItemCollection>,
+        _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
@@ -223,7 +223,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
         
-        self.init(collection: collection,
+        self.init(data,
                   selection: selection,
                   layout: UICollectionViewCompositionalLayout.list(using: listConfig),
                   contentConfiguration: contentConfiguration,
