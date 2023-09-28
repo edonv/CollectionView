@@ -8,4 +8,4 @@
 
 ## To-Do's
 
-[ ] Implement `UICellConfigurationState`
+- [ ] Implement `UICellConfigurationState`.
