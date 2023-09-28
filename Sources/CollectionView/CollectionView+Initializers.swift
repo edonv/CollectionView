@@ -29,7 +29,7 @@ extension CollectionView {
     /// SwiftUI cell, single/no select
     public init<Content>(
         collection: Binding<ItemCollection>,
-        selection: Binding<Item?>?,
+        selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
@@ -63,7 +63,7 @@ extension CollectionView {
     /// SwiftUI cell with SwiftUI background, single/no select
     public init<Content, Background>(
         collection: Binding<ItemCollection>,
-        selection: Binding<Item?>?,
+        selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
@@ -99,7 +99,7 @@ extension CollectionView {
     /// SwiftUI cell with ShapeStyle background, single/no select
     public init<Content, S>(
         collection: Binding<ItemCollection>,
-        selection: Binding<Item?>?,
+        selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellBackground: S,
@@ -141,7 +141,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     /// list cells, single/no select
     public init(
         collection: Binding<ItemCollection>,
-        selection: Binding<Item?>?,
+        selection: Binding<Item?>? = nil,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,

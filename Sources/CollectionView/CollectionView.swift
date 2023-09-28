@@ -50,7 +50,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     /// Standard init, single/no select
     public init(
         collection: Binding<ItemCollection>,
-        selection: Binding<Item?>?,
+        selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
