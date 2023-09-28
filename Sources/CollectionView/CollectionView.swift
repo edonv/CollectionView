@@ -138,19 +138,19 @@ extension CollectionView: UIViewRepresentable {
         
         // Update selected cells
         // TODO: add a check that selection is even enabled
-        let newSelectedIndexPaths = selection
-            .compactMap { context.coordinator.dataSource.indexPath(for: $0) }
-        let currentlySelectedIndexPaths = uiView.indexPathsForSelectedItems
+        let newSelectedIndexPaths = Set(selection
+            .compactMap { context.coordinator.dataSource.indexPath(for: $0) })
+        let currentlySelectedIndexPaths = Set(uiView.indexPathsForSelectedItems ?? [])
         
-        if let diff = currentlySelectedIndexPaths?.difference(from: newSelectedIndexPaths),
-           !diff.isEmpty {
-            for d in diff {
-                switch d {
-                case .insert(_, let indexPath, _):
-                    uiView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-                case .remove(_, let indexPath, _):
-                    uiView.deselectItem(at: indexPath, animated: true)
-                }
+        if newSelectedIndexPaths != currentlySelectedIndexPaths {
+            let removed = currentlySelectedIndexPaths.subtracting(newSelectedIndexPaths)
+            removed.forEach {
+                uiView.deselectItem(at: $0, animated: true)
+            }
+            
+            let added = newSelectedIndexPaths.subtracting(currentlySelectedIndexPaths)
+            added.forEach {
+                uiView.selectItem(at: $0, animated: true, scrollPosition: .centeredVertically)
             }
         }
     }
