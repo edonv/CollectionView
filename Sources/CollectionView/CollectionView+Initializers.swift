@@ -11,7 +11,15 @@ import SwiftUI
 
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)
 extension CollectionView {
-    /// SwiftUI cell, multiple select
+    /// Creates a collection view that computes its cells using a SwiftUI view, also allowing users to select multiple items.
+    ///
+    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a set that represents selected items.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content>(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -26,7 +34,15 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
-    /// SwiftUI cell, single/no select
+    /// Creates a collection view that computes its cells using a SwiftUI view, optionally allowing users to select a single item.
+    ///
+    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content>(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
@@ -41,7 +57,16 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
-    /// SwiftUI cell with SwiftUI background, multiple select
+    /// Creates a collection view that computes its cells and their backgrounds using SwiftUI views, also allowing users to select multiple items.
+    ///
+    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a set that represents selected items.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellBackground: The contents of the SwiftUI hierarchy to be shown inside the background of the cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, Background>(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -60,7 +85,16 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
-    /// SwiftUI cell with SwiftUI background, single/no select
+    /// Creates a collection view that computes its cells and their backgrounds using SwiftUI views, optionally allowing users to select a single item.
+    ///
+    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellBackground: The contents of the SwiftUI hierarchy to be shown inside the background of the cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, Background>(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
@@ -79,7 +113,16 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
-    /// SwiftUI cell with ShapeStyle background, multiple select
+    /// Creates a collection view that computes its cells using SwiftUI views (and their backgrounds from a shape style), also allowing users to select multiple items.
+    ///
+    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a set that represents selected items.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellBackground: The shape style to be used as the background of the cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, S>(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -96,7 +139,16 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
-    /// SwiftUI cell with ShapeStyle background, single/no select
+    /// Creates a collection view that computes its cells using SwiftUI views (and their backgrounds from a shape style), optionally allowing users to select a single item.
+    ///
+    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellBackground: The shape style to be used as the background of the cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, S>(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
@@ -117,7 +169,17 @@ extension CollectionView {
 // MARK: - UICollectionLayoutListConfiguration
 
 extension CollectionView where CollectionLayout == UICollectionViewCompositionalLayout, ContentConfiguration == UIListContentConfiguration {
-    /// list cells, multiple select
+    /// Creates a collection view with a list layout that allows users to select multiple items.
+    ///
+    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a set that represents selected items.
+    ///   - listAppearance: The overall appearance of the list.
+    ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
+    ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
+    ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -138,7 +200,17 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
                   cellConfigurationHandler: cellConfigurationHandler)
     }
     
-    /// list cells, single/no select
+    /// Creates a collection view with a list layout that optionally allows users to select a single item.
+    ///
+    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
+    ///   - listAppearance: The overall appearance of the list.
+    ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
+    ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
+    ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,

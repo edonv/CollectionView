@@ -21,14 +21,35 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     private var singleSelection: Bool
     private var multipleSelection: Bool
     
+    /// The data for populating the list.
     @Binding internal var data: ItemCollection
+    
+    /// A binding to a set that represents selected items.
     @Binding internal var selection: Set<Item>
+    
+    /// The layout object to use for organizing items.
     internal var layout: CollectionLayout
+    
+    /// A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
     internal var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
+    
+    /// An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     internal var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
+    /// An optional closure for configuring properties of each item's cell.
+    ///
+    /// One possible use can be to set the cell's [`configurationUpdateHandler`] (https://developer.apple.com/documentation/uikit/uicollectionviewcell/3751733-configurationupdatehandler) property.
     internal var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
     
-    /// Standard init, multiple select
+    /// Creates a collection view that allows users to select multiple items.
+    ///
+    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a set that represents selected items.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
+    ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -47,7 +68,16 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         self.cellConfigurationHandler = cellConfigurationHandler
     }
     
-    /// Standard init, single/no select
+    /// Creates a collection view that optionally allows users to select a single item.
+    ///
+    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Parameters:
+    ///   - data: The data for populating the list.
+    ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
+    ///   - layout: The layout object to use for organizing items.
+    ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
+    ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
+    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init(
         collection: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
