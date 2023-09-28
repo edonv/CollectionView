@@ -18,10 +18,11 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
-    @Binding internal var collection: ItemCollection
-    @Binding internal var selection: Set<Item>
     private var singleSelection: Bool
     private var multipleSelection: Bool
+    
+    @Binding internal var collection: ItemCollection
+    @Binding internal var selection: Set<Item>
     internal var layout: CollectionLayout
     internal var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
     internal var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
