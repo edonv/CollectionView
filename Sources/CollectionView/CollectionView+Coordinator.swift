@@ -21,7 +21,7 @@ extension CollectionView {
             let backgroundConfiguration = parent.backgroundConfiguration
             let cellConfigurationHandler = parent.cellConfigurationHandler
             
-            let cellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Item> { cell, indexPath, item in
+            let cellRegistration = UICollectionView.CellRegistration<Cell, Item> { cell, indexPath, item in
                 cell.contentConfiguration = contentConfiguration(indexPath, item)
                 cell.backgroundConfiguration = backgroundConfiguration?(indexPath, item)
                 cellConfigurationHandler?(cell, indexPath, item)

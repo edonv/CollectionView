@@ -11,8 +11,8 @@ import OrderedCollections
 // TODO: add sections
 // TODO: make the collectionviewcell
 
-public struct CollectionView<Section, Item, CollectionLayout, ContentConfiguration> 
-    where Section: Sendable & Hashable, Item: Sendable & Hashable, CollectionLayout: UICollectionViewLayout, ContentConfiguration: UIContentConfiguration {
+public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfiguration>
+    where Section: Sendable & Hashable, Item: Sendable & Hashable, Cell: UICollectionViewCell, CollectionLayout: UICollectionViewLayout, ContentConfiguration: UIContentConfiguration {
     
     public typealias ItemCollection = OrderedDictionary<Section, [Item]>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
@@ -38,7 +38,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     /// An optional closure for configuring properties of each item's cell.
     ///
     /// One possible use can be to set the cell's [`configurationUpdateHandler`] (https://developer.apple.com/documentation/uikit/uicollectionviewcell/3751733-configurationupdatehandler) property.
-    public private(set) var cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)?
+    public private(set) var cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)?
     
     /// Creates a collection view that allows users to select multiple items.
     ///
@@ -47,6 +47,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a set that represents selected items.
     ///   - layout: The layout object to use for organizing items.
+    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
     ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
@@ -54,9 +55,10 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
+        cellType: Cell.Type = UICollectionViewCell.self,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
+        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) {
         self._data = data
         self._selection = selection
@@ -75,6 +77,7 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
     ///   - layout: The layout object to use for organizing items.
+    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
     ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
@@ -82,9 +85,10 @@ public struct CollectionView<Section, Item, CollectionLayout, ContentConfigurati
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
+        cellType: Cell.Type = UICollectionViewCell.self,
         contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
         backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((UICollectionViewCell, IndexPath, Item) -> Void)? = nil
+        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) {
         self._data = data
         
