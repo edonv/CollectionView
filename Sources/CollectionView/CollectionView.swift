@@ -12,6 +12,7 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfi
     where Section: Sendable & Hashable, Item: Sendable & Hashable, Cell: UICollectionViewCell, CollectionLayout: UICollectionViewLayout, ContentConfiguration: UIContentConfiguration {
     
     public typealias ItemCollection = OrderedDictionary<Section, [Item]>
+    typealias CellRegistration = UICollectionView.CellRegistration<Cell, Item>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
