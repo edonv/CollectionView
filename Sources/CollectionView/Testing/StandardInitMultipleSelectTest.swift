@@ -8,7 +8,6 @@
 import SwiftUI
 import OrderedCollections
 
-@available(iOS 15.0, *)
 struct StandardInitMultipleSelectTest: View {
     @State
     var items: OrderedDictionary<Testing.Sections, [Testing.Item]> = .dummyData
