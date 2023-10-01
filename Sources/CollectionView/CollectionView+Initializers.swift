@@ -38,11 +38,6 @@ extension CollectionView where Cell == UICollectionViewCell {
             }
             cellConfigurationHandler?(cell, indexPath, item)
         }
-//                  contentConfiguration: { indexPath, item in
-//            UIHostingConfiguration {
-//                cellContent(indexPath, item)
-//            }
-//        }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
     // MARK: - SwiftUI Cell, No Background, Single/No Select
@@ -72,11 +67,6 @@ extension CollectionView where Cell == UICollectionViewCell {
             }
             cellConfigurationHandler?(cell, indexPath, item)
         }
-//                  cellRegistration: { indexPath, item in
-//            UIHostingConfiguration {
-//                cellContent(indexPath, item)
-//            }
-//        }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
     // MARK: - SwiftUI Cell, Custom View Background, Multiple Select
@@ -96,7 +86,6 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
-//        cellType: Cell.Type = UICollectionViewCell.self,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
         cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
@@ -112,14 +101,6 @@ extension CollectionView where Cell == UICollectionViewCell {
             }
             cellConfigurationHandler?(cell, indexPath, item)
         }
-//                  contentConfiguration: { indexPath, item in
-//            UIHostingConfiguration {
-//                cellContent(indexPath, item)
-//            }
-//            .background {
-//                cellBackground(indexPath, item)
-//            }
-//        }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
     // MARK: - SwiftUI Cell, Custom View Background, Single/No Select
@@ -139,7 +120,6 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-//        cellType: Cell.Type = UICollectionViewCell.self,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
         cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
@@ -155,14 +135,6 @@ extension CollectionView where Cell == UICollectionViewCell {
             }
             cellConfigurationHandler?(cell, indexPath, item)
         }
-//                  contentConfiguration: { indexPath, item in
-//            UIHostingConfiguration {
-//                cellContent(indexPath, item)
-//            }
-//            .background {
-//                cellBackground(indexPath, item)
-//            }
-//        }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
     // MARK: - SwiftUI Cell, ShapeStyle Background, Multiple Select
@@ -195,12 +167,6 @@ extension CollectionView where Cell == UICollectionViewCell {
             .background(cellBackground)
             cellConfigurationHandler?(cell, indexPath, item)
         }
-//                  contentConfiguration: { indexPath, item in
-//            UIHostingConfiguration {
-//                cellContent(indexPath, item)
-//            }
-//            .background(cellBackground)
-//        }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
     // MARK: - SwiftUI Cell, ShapeStyle Background, Single/No Select
@@ -220,7 +186,6 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-//        cellType: Cell.Type = UICollectionViewCell.self,
         @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellBackground: S,
         cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
@@ -234,12 +199,6 @@ extension CollectionView where Cell == UICollectionViewCell {
             .background(cellBackground)
             cellConfigurationHandler?(cell, indexPath, item)
         }
-//                  contentConfiguration: { indexPath, item in
-//            UIHostingConfiguration {
-//                cellContent(indexPath, item)
-//            }
-//            .background(cellBackground)
-//        }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
 }
 
