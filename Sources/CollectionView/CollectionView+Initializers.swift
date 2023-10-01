@@ -11,6 +11,8 @@ import SwiftUI
 
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)
 extension CollectionView {
+    // MARK: - SwiftUI Cell, No Background, Multiple Select
+    
     /// Creates a collection view that computes its cells using a SwiftUI view, also allowing users to select multiple items.
     ///
     /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
@@ -36,6 +38,8 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    // MARK: - SwiftUI Cell, No Background, Single/No Select
+    
     /// Creates a collection view that computes its cells using a SwiftUI view, optionally allowing users to select a single item.
     ///
     /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
@@ -60,6 +64,8 @@ extension CollectionView {
             }
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
+    
+    // MARK: - SwiftUI Cell, Custom View Background, Multiple Select
     
     /// Creates a collection view that computes its cells and their backgrounds using SwiftUI views, also allowing users to select multiple items.
     ///
@@ -91,6 +97,8 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    // MARK: - SwiftUI Cell, Custom View Background, Single/No Select
+    
     /// Creates a collection view that computes its cells and their backgrounds using SwiftUI views, optionally allowing users to select a single item.
     ///
     /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
@@ -121,6 +129,8 @@ extension CollectionView {
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
     
+    // MARK: - SwiftUI Cell, ShapeStyle Background, Multiple Select
+    
     /// Creates a collection view that computes its cells using SwiftUI views (and their backgrounds from a shape style), also allowing users to select multiple items.
     ///
     /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
@@ -148,6 +158,8 @@ extension CollectionView {
             .background(cellBackground)
         }, backgroundConfiguration: nil, cellConfigurationHandler: cellConfigurationHandler)
     }
+    
+    // MARK: - SwiftUI Cell, ShapeStyle Background, Single/No Select
     
     /// Creates a collection view that computes its cells using SwiftUI views (and their backgrounds from a shape style), optionally allowing users to select a single item.
     ///
@@ -181,6 +193,8 @@ extension CollectionView {
 // MARK: - UICollectionLayoutListConfiguration
 
 extension CollectionView where CollectionLayout == UICollectionViewCompositionalLayout, ContentConfiguration == UIListContentConfiguration {
+    // MARK: - List Layout, List Cell, Multiple Select
+    
     /// Creates a collection view with a list layout that allows users to select multiple items.
     ///
     /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
@@ -214,6 +228,8 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
                   backgroundConfiguration: backgroundConfiguration,
                   cellConfigurationHandler: cellConfigurationHandler)
     }
+    
+    // MARK: - List Layout, List Cell, Single/No Select
     
     /// Creates a collection view with a list layout that optionally allows users to select a single item.
     ///
