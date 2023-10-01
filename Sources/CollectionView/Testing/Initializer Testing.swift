@@ -29,6 +29,7 @@ extension OrderedDictionary where Key == Testing.Sections, Value == [Testing.Ite
                 Testing.Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
                 Testing.Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
                 Testing.Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
+                Testing.Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill")
             ],
             .section2: [
                 Testing.Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
