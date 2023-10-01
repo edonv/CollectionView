@@ -8,9 +8,6 @@
 import SwiftUI
 import OrderedCollections
 
-// TODO: add sections
-// TODO: make the collectionviewcell
-
 public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfiguration>
     where Section: Sendable & Hashable, Item: Sendable & Hashable, Cell: UICollectionViewCell, CollectionLayout: UICollectionViewLayout, ContentConfiguration: UIContentConfiguration {
     
