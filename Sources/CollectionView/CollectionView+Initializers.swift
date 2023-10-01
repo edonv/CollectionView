@@ -193,6 +193,7 @@ extension CollectionView {
 // MARK: - UICollectionLayoutListConfiguration
 
 extension CollectionView where CollectionLayout == UICollectionViewCompositionalLayout, ContentConfiguration == UIListContentConfiguration {
+    
     // MARK: - List Layout, List Cell, Multiple Select
     
     /// Creates a collection view with a list layout that allows users to select multiple items.
