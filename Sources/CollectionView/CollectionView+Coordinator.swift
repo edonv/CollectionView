@@ -17,16 +17,17 @@ extension CollectionView {
         }
         
         internal func setUpCollectionView(_ collectionView: UICollectionView) {
-            let contentConfiguration = parent.contentConfiguration
-            let backgroundConfiguration = parent.backgroundConfiguration
-            let cellConfigurationHandler = parent.cellConfigurationHandler
+//            let contentConfiguration = parent.contentConfiguration
+//            let backgroundConfiguration = parent.backgroundConfiguration
+//            let cellConfigurationHandler = parent.cellConfigurationHandler
             
-            let cellRegistration = CellRegistration { cell, indexPath, item in
-                cell.contentConfiguration = contentConfiguration(indexPath, item)
-                cell.backgroundConfiguration = backgroundConfiguration?(indexPath, item)
-                cellConfigurationHandler?(cell, indexPath, item)
-            }
+//            let cellRegistration = CellRegistration { cell, indexPath, item in
+//                cell.contentConfiguration = contentConfiguration(indexPath, item)
+//                cell.backgroundConfiguration = backgroundConfiguration?(indexPath, item)
+//                cellConfigurationHandler?(cell, indexPath, item)
+//            }
             
+            let cellRegistration = parent.cellRegistration
             self.dataSource = .init(collectionView: collectionView) { collectionView, indexPath, item in
                 collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             }

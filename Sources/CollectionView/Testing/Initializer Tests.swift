@@ -41,31 +41,33 @@ struct StandardInitMultipleSelectTest: View {
     var body: some View {
         CollectionView(
             $items,
-            selection: $selection,
-            layout: layout()) { indexPath, item -> UIListContentConfiguration in
-                let isHeader = indexPath.item == 0
-                var contentConfig: UIListContentConfiguration
-                if isHeader {
-                    contentConfig = UIListContentConfiguration.groupedHeader()
-                } else {
-                    contentConfig = UIListContentConfiguration.valueCell()
-                    contentConfig.secondaryText = item.subtitle
-                }
+            selection: $selection, 
+            layout: layout()) { cell, indexPath, item in
+                cell.contentConfiguration = {
+                    let isHeader = indexPath.item == 0
+                    var contentConfig: UIListContentConfiguration
+                    if isHeader {
+                        contentConfig = UIListContentConfiguration.groupedHeader()
+                    } else {
+                        contentConfig = UIListContentConfiguration.valueCell()
+                        contentConfig.secondaryText = item.subtitle
+                    }
+                    
+                    contentConfig.text = item.title
+                    contentConfig.image = UIImage(systemName: item.systemImageName)
+                    contentConfig.secondaryTextProperties.color = .label
+                    contentConfig.imageProperties.cornerRadius = 10
+                    contentConfig.imageProperties.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .largeTitle), scale: .default)
+                    return contentConfig
+                }()
                 
-                contentConfig.text = item.title
-                contentConfig.image = UIImage(systemName: item.systemImageName)
-                contentConfig.secondaryTextProperties.color = .label
-                contentConfig.imageProperties.cornerRadius = 10
-                contentConfig.imageProperties.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .largeTitle), scale: .default)
-                return contentConfig
-            } backgroundConfiguration: { indexPath, _ in
-                if indexPath.item == 0 {
-                    UIBackgroundConfiguration.listGroupedHeaderFooter()
-                } else {
-                    UIBackgroundConfiguration.listGroupedCell()
-                }
-            } cellConfigurationHandler: { cell, _, _ in
-                
+                cell.backgroundConfiguration = {
+                    if indexPath.item == 0 {
+                        UIBackgroundConfiguration.listGroupedHeaderFooter()
+                    } else {
+                        UIBackgroundConfiguration.listGroupedCell()
+                    }
+                }()
             }
             .itemSelection(shouldSelectItem: { _, indexPath in
                 indexPath.item != 0

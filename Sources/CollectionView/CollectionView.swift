@@ -8,11 +8,11 @@
 import SwiftUI
 import OrderedCollections
 
-public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfiguration>
-    where Section: Sendable & Hashable, Item: Sendable & Hashable, Cell: UICollectionViewCell, CollectionLayout: UICollectionViewLayout, ContentConfiguration: UIContentConfiguration {
+public struct CollectionView<Section, Item, Cell, CollectionLayout>
+    where Section: Sendable & Hashable, Item: Sendable & Hashable, Cell: UICollectionViewCell, CollectionLayout: UICollectionViewLayout {
     
     public typealias ItemCollection = OrderedDictionary<Section, [Item]>
-    typealias CellRegistration = UICollectionView.CellRegistration<Cell, Item>
+    public typealias CellRegistration = UICollectionView.CellRegistration<Cell, Item>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
     typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
@@ -28,17 +28,18 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfi
     /// The layout object to use for organizing items.
     internal var layout: CollectionLayout
     
+    internal var cellRegistration: CellRegistration
     /// A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
-    internal var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
+//    internal var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
     
     // MARK: - Standard Init, Multiple Select
     
     /// An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
-    internal var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
+//    internal var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
     /// An optional closure for configuring properties of each item's cell.
     ///
     /// One possible use can be to set the cell's [`configurationUpdateHandler`] (https://developer.apple.com/documentation/uikit/uicollectionviewcell/3751733-configurationupdatehandler) property.
-    public private(set) var cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)?
+//    public private(set) var cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)?
     
     /// Creates a collection view that allows users to select multiple items.
     ///
@@ -56,18 +57,20 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfi
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         cellType: Cell.Type = UICollectionViewCell.self,
-        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
-        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        cellRegistrationHandler: @escaping CellRegistration.Handler
+//        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
+//        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
+//        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) {
         self._data = data
         self._selection = selection
         self.singleSelection = true
         self.multipleSelection = true
         self.layout = layout
-        self.contentConfiguration = contentConfiguration
-        self.backgroundConfiguration = backgroundConfiguration
-        self.cellConfigurationHandler = cellConfigurationHandler
+        self.cellRegistration = .init(handler: cellRegistrationHandler)
+//        self.contentConfiguration = contentConfiguration
+//        self.backgroundConfiguration = backgroundConfiguration
+//        self.cellConfigurationHandler = cellConfigurationHandler
     }
     
     // MARK: - Standard Init, Single/No Select
@@ -88,9 +91,10 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfi
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         cellType: Cell.Type = UICollectionViewCell.self,
-        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
-        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        cellRegistrationHandler: @escaping CellRegistration.Handler
+//        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
+//        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
+//        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) {
         self._data = data
         
@@ -107,9 +111,10 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout, ContentConfi
         self.singleSelection = selection != nil
         self.multipleSelection = false
         self.layout = layout
-        self.contentConfiguration = contentConfiguration
-        self.backgroundConfiguration = backgroundConfiguration
-        self.cellConfigurationHandler = cellConfigurationHandler
+        self.cellRegistration = .init(handler: cellRegistrationHandler)
+//        self.contentConfiguration = contentConfiguration
+//        self.backgroundConfiguration = backgroundConfiguration
+//        self.cellConfigurationHandler = cellConfigurationHandler
     }
     
     // MARK: - View Modifier Properties
@@ -221,35 +226,37 @@ private struct TestView: View {
     
     var body: some View {
         NavigationView {
-            CollectionView($items,
-                           selection: .constant([]),
-                           listAppearance: .sidebar,
-                           listConfigurationHandler: { config in
-                config.headerMode = .firstItemInSection
-            },
-                           contentConfiguration: { indexPath, string in
-                
-                if indexPath.item > 0 {
-                    var config = UIListContentConfiguration.sidebarCell()
-                    config.image = UIImage(systemName: "speaker.wave.3.fill")
-                    config.imageProperties.cornerRadius = 40
-                    config.text = string
-                    config.secondaryText = string
-                    return config
-                } else {
-                    var config = UIListContentConfiguration.sidebarHeader()
-                    config.text = string
-                    return config
+            CollectionView(
+                $items,
+                selection: .constant([]),
+                listAppearance: .sidebar,
+                listConfigurationHandler: { config in
+                    config.headerMode = .firstItemInSection
+                },
+                contentConfiguration: { indexPath, string in
+                    
+                    if indexPath.item > 0 {
+                        var config = UIListContentConfiguration.sidebarCell()
+                        config.image = UIImage(systemName: "speaker.wave.3.fill")
+                        config.imageProperties.cornerRadius = 40
+                        config.text = string
+                        config.secondaryText = string
+                        return config
+                    } else {
+                        var config = UIListContentConfiguration.sidebarHeader()
+                        config.text = string
+                        return config
+                    }
+                }, backgroundConfiguration: { indexPath, _ in
+                    if indexPath.item > 0 {
+                        .listSidebarCell()
+                    } else {
+                        .listGroupedHeaderFooter()
+                    }
+                }, cellConfigurationHandler: { cell, _, _ in
+                    
                 }
-            }, backgroundConfiguration: { indexPath, _ in
-                if indexPath.item > 0 {
-                    .listSidebarCell()
-                } else {
-                    .listGroupedHeaderFooter()
-                }
-            }, cellConfigurationHandler: { cell, _, _ in
-                
-            })
+            )
             .ignoresSafeArea()
             .navigationTitle("Test")
             .toolbar {
