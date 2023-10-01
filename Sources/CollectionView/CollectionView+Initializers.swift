@@ -27,8 +27,8 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) where Content: View {
         self.init(data, 
                   selection: selection,
@@ -56,8 +56,8 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) where Content: View {
         self.init(data, 
                   selection: selection,
@@ -86,9 +86,9 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
-        @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
+        @ViewBuilder cellBackground: @escaping (IndexPath, _ item: Item) -> Background,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) where Content: View, Background: View {
         self.init(data, 
                   selection: selection,
@@ -120,9 +120,9 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
-        @ViewBuilder cellBackground: @escaping (IndexPath, Item) -> Background,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
+        @ViewBuilder cellBackground: @escaping (IndexPath, _ item: Item) -> Background,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) where Content: View, Background: View {
         self.init(data, 
                   selection: selection,
@@ -155,8 +155,8 @@ extension CollectionView where Cell == UICollectionViewCell {
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         cellBackground: S,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle {
         self.init(data,
                   selection: selection,
@@ -187,8 +187,8 @@ extension CollectionView where Cell == UICollectionViewCell {
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         cellBackground: S,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle {
         self.init(data,
                   selection: selection,
@@ -226,9 +226,9 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
 //        cellType: Cell.Type = UICollectionViewListCell.self,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
-        contentConfiguration: @escaping (IndexPath, Item) -> UIListContentConfiguration,
-        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        contentConfiguration: @escaping (IndexPath, _ item: Item) -> UIListContentConfiguration,
+        backgroundConfiguration: ((IndexPath, _ item: Item) -> UIBackgroundConfiguration)?,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
@@ -266,9 +266,9 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
 //        cellType: Cell.Type = UICollectionViewListCell.self,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
-        contentConfiguration: @escaping (IndexPath, Item) -> UIListContentConfiguration,
-        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
+        contentConfiguration: @escaping (IndexPath, _ item: Item) -> UIListContentConfiguration,
+        backgroundConfiguration: ((IndexPath, _ item: Item) -> UIBackgroundConfiguration)?,
+        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
