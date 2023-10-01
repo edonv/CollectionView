@@ -1,5 +1,5 @@
 //
-//  Initializer Tests.swift
+//  StandardInitMultipleSelectTest.swift
 //
 //
 //  Created by Edon Valdman on 9/28/23.
@@ -8,35 +8,12 @@
 import SwiftUI
 import OrderedCollections
 
-enum Sections: String, Hashable {
-    case section1
-    case section2
-}
-
-struct Item: Hashable {
-    var title: String
-    var subtitle: String
-    var systemImageName: String
-}
-
 @available(iOS 15.0, *)
 struct StandardInitMultipleSelectTest: View {
-    @State var items: OrderedDictionary<Sections, [Item]> = [
-        .section1: [
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-        ],
-        .section2: [
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "books.vertical.fill"),
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-            Item(title: String(UUID().uuidString.prefix(8)), subtitle: String(UUID().uuidString.prefix(8)), systemImageName: "trash.fill"),
-        ]
-    ]
+    @State
+    var items: OrderedDictionary<Testing.Sections, [Testing.Item]> = .dummyData
     
-    @State var selection: Set<Item> = []
+    @State var selection: Set<Testing.Item> = []
     
     var body: some View {
         CollectionView(
@@ -72,6 +49,16 @@ struct StandardInitMultipleSelectTest: View {
             .itemSelection(shouldSelectItem: { _, indexPath in
                 indexPath.item != 0
             })
+//            .contextMenu<Text>(menuIdentifier: nil, swiftUIProvider: { indexPaths, point in
+//                guard let firstIndexPath = indexPaths.first,
+//                      let item = self.items[firstIndexPath] else { return nil }
+//                
+//                return Text(item.title)
+//            }, actionProvider: { indexPaths, point, _ in
+//                return nil 
+//            })
+//            .background(.green)
+//            .backgroundColor(Color.yellow)
             .ignoresSafeArea()
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -81,18 +68,23 @@ struct StandardInitMultipleSelectTest: View {
                     }
                 }
             }
+//            .onChange(of: selection) { newValue in
+//                print(newValue.map(\.title))
+//            }
     }
     
     func layout() -> UICollectionViewCompositionalLayout {
         var listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfig.headerMode = .firstItemInSection
+//        listConfig.backgroundColor = .clear
         return .list(using: listConfig)
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 #Preview {
     NavigationView {
         StandardInitMultipleSelectTest()
+//            .navigationTitle("Test")
     }
 }
