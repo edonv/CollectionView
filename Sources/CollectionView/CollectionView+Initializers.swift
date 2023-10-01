@@ -154,8 +154,8 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellBackground: S,
+        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle {
         self.init(data,
@@ -186,8 +186,8 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellBackground: S,
+        @ViewBuilder cellContent: @escaping (IndexPath, Item) -> Content,
         cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle {
         self.init(data,
