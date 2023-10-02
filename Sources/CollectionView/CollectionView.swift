@@ -116,6 +116,7 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     
     // Single Selection
     
+    internal var didSelectItemHandler: CollectionViewVoidCallback? = nil
     internal var shouldSelectItemHandler: CollectionViewBoolCallback? = nil
     internal var shouldDeselectItemHandler: CollectionViewBoolCallback? = nil
     
@@ -268,7 +269,10 @@ private struct TestView: View {
                     config.headerMode = .firstItemInSection
 //                    config.backgroundColor = .systemGroupedBackground
                 }
-                .backgroundColor(.systemRed)
+//                .backgroundColor(.systemRed)
+                .onSelect { _, indexPath in
+                    print(indexPath)
+                }
                 .ignoresSafeArea()
                 .navigationTitle("Test")
                 .toolbar {

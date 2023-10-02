@@ -44,6 +44,7 @@ extension CollectionView {
         }
         
         public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            parent.didSelectItemHandler?(collectionView, indexPath)
             guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
             parent.selection.insert(item)
         }

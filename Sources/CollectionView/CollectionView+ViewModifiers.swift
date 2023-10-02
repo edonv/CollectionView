@@ -88,25 +88,16 @@ extension CollectionView {
     // MARK: - Single Selection
     
     /// Adds a modifier for this view that fires an action when a cell is selected.
-    ///
-    /// This modifier is just syntactic sugar for `.onChange(of: selection)`.
     /// - Parameters:
-    ///   - action: A closure to run when the cell is selected.
-    ///   - selectedItem: The `Item` associated with the selected cell.
-    /// - Returns: A view that fires an action when the cell associated with the specified item is selected.
-    @ViewBuilder
-    public func onSelect(perform action: @escaping (_ selectedItem: Item) -> Void) -> some View {
-        if #available(iOS 17, macCatalyst 17, macOS 14, tvOS 17, watchOS 10, visionOS 1, *) {
-            self.onChange(of: selection) { oldValue, newValue in
-                guard let newSelection = newValue.subtracting(oldValue).first else { return }
-                action(newSelection)
-            }
-        } else {
-            self.onChange(of: selection) { [selection] newValue in
-                guard let newSelection = newValue.subtracting(selection).first else { return }
-                action(newSelection)
-            }
-        }
+    ///   - handler: A closure to run when the cell is selected.
+    ///   - indexPath: The index path of the cell that was selected.
+    /// - Returns: A view that fires an action when a cell is selected.
+    public func onSelect(
+        _ handler: CollectionViewVoidCallback?
+    ) -> CollectionView {
+        var new = self
+        new.didSelectItemHandler = handler
+        return new
     }
     
     public func itemSelection(
