@@ -272,7 +272,7 @@ private struct TestView: View {
                 .ignoresSafeArea()
                 .navigationTitle("Test")
                 .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
+                    ToolbarItem(placement: .primaryAction) {
                         Button("Test") {
                             items[.main]?.append("Test \(items[.main]?.count ?? 0)")
                         }
