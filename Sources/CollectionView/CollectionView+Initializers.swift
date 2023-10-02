@@ -27,16 +27,18 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) where Content: View {
         self.init(data, 
                   selection: selection,
                   layout: layout) { cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                cellContent(indexPath, item)
+            cell.configurationUpdateHandler = { cell, state in
+                cell.contentConfiguration = UIHostingConfiguration {
+                    cellContent(indexPath, state, item)
+                }
+                cellConfigurationHandler?(cell, indexPath, state, item)
             }
-            cellConfigurationHandler?(cell, indexPath, item)
         }
     }
     
@@ -56,16 +58,18 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) where Content: View {
         self.init(data, 
                   selection: selection,
                   layout: layout) { cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                cellContent(indexPath, item)
+            cell.configurationUpdateHandler = { cell, state in
+                cell.contentConfiguration = UIHostingConfiguration {
+                    cellContent(indexPath, state, item)
+                }
+                cellConfigurationHandler?(cell, indexPath, state, item)
             }
-            cellConfigurationHandler?(cell, indexPath, item)
         }
     }
     
@@ -86,20 +90,22 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
-        @ViewBuilder cellBackground: @escaping (IndexPath, _ item: Item) -> Background,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
+        @ViewBuilder cellBackground: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Background,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) where Content: View, Background: View {
         self.init(data, 
                   selection: selection,
                   layout: layout) { cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                cellContent(indexPath, item)
+            cell.configurationUpdateHandler = { cell, state in
+                cell.contentConfiguration = UIHostingConfiguration {
+                    cellContent(indexPath, state, item)
+                }
+                .background {
+                    cellBackground(indexPath, state, item)
+                }
+                cellConfigurationHandler?(cell, indexPath, state, item)
             }
-            .background {
-                cellBackground(indexPath, item)
-            }
-            cellConfigurationHandler?(cell, indexPath, item)
         }
     }
     
@@ -120,20 +126,22 @@ extension CollectionView where Cell == UICollectionViewCell {
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
-        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
-        @ViewBuilder cellBackground: @escaping (IndexPath, _ item: Item) -> Background,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
+        @ViewBuilder cellBackground: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Background,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) where Content: View, Background: View {
         self.init(data, 
                   selection: selection,
                   layout: layout) { cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                cellContent(indexPath, item)
+            cell.configurationUpdateHandler = { cell, state in
+                cell.contentConfiguration = UIHostingConfiguration {
+                    cellContent(indexPath, state, item)
+                }
+                .background {
+                    cellBackground(indexPath, state, item)
+                }
+                cellConfigurationHandler?(cell, indexPath, state, item)
             }
-            .background {
-                cellBackground(indexPath, item)
-            }
-            cellConfigurationHandler?(cell, indexPath, item)
         }
     }
     
@@ -155,17 +163,19 @@ extension CollectionView where Cell == UICollectionViewCell {
         selection: Binding<Set<Item>>,
         layout: CollectionLayout,
         cellBackground: S,
-        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle {
         self.init(data,
                   selection: selection,
                   layout: layout) { cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                cellContent(indexPath, item)
+            cell.configurationUpdateHandler = { cell, state in
+                cell.contentConfiguration = UIHostingConfiguration {
+                    cellContent(indexPath, state, item)
+                }
+                .background(cellBackground)
+                cellConfigurationHandler?(cell, indexPath, state, item)
             }
-            .background(cellBackground)
-            cellConfigurationHandler?(cell, indexPath, item)
         }
     }
     
@@ -187,17 +197,19 @@ extension CollectionView where Cell == UICollectionViewCell {
         selection: Binding<Item?>? = nil,
         layout: CollectionLayout,
         cellBackground: S,
-        @ViewBuilder cellContent: @escaping (IndexPath, _ item: Item) -> Content,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) where Content: View, S: ShapeStyle {
         self.init(data,
                   selection: selection,
                   layout: layout) { cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                cellContent(indexPath, item)
+            cell.configurationUpdateHandler = { cell, state in
+                cell.contentConfiguration = UIHostingConfiguration {
+                    cellContent(indexPath, state, item)
+                }
+                .background(cellBackground)
+                cellConfigurationHandler?(cell, indexPath, state, item)
             }
-            .background(cellBackground)
-            cellConfigurationHandler?(cell, indexPath, item)
         }
     }
 }
