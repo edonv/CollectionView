@@ -15,13 +15,12 @@ extension CollectionView where Cell == UICollectionViewCell {
     
     /// Creates a collection view that computes its cells using a SwiftUI view, also allowing users to select multiple items.
     ///
-    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Note: If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a set that represents selected items.
     ///   - layout: The layout object to use for organizing items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view. If using a list layout, it's possible to use [`.swipeActions`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) on the content of this closure and it'll be bridged automatically.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content>(
         _ data: Binding<ItemCollection>,
@@ -45,14 +44,13 @@ extension CollectionView where Cell == UICollectionViewCell {
     // MARK: - SwiftUI Cell, No Background, Single/No Select
     
     /// Creates a collection view that computes its cells using a SwiftUI view, optionally allowing users to select a single item.
-    ///
-    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    ///  
+    /// - Note: If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
     ///   - layout: The layout object to use for organizing items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view. If using a list layout, it's possible to use [`.swipeActions`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) on the content of this closure and it'll be bridged automatically.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content>(
         _ data: Binding<ItemCollection>,
@@ -77,13 +75,12 @@ extension CollectionView where Cell == UICollectionViewCell {
     
     /// Creates a collection view that computes its cells and their backgrounds using SwiftUI views, also allowing users to select multiple items.
     ///
-    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Note: If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a set that represents selected items.
     ///   - layout: The layout object to use for organizing items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view. If using a list layout, it's possible to use [`.swipeActions`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) on the content of this closure and it'll be bridged automatically.
     ///   - cellBackground: The contents of the SwiftUI hierarchy to be shown inside the background of the cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, Background>(
@@ -113,13 +110,12 @@ extension CollectionView where Cell == UICollectionViewCell {
     
     /// Creates a collection view that computes its cells and their backgrounds using SwiftUI views, optionally allowing users to select a single item.
     ///
-    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Note: If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
     ///   - layout: The layout object to use for organizing items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view. If using a list layout, it's possible to use [`.swipeActions`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) on the content of this closure and it'll be bridged automatically.
     ///   - cellBackground: The contents of the SwiftUI hierarchy to be shown inside the background of the cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, Background>(
@@ -149,14 +145,13 @@ extension CollectionView where Cell == UICollectionViewCell {
     
     /// Creates a collection view that computes its cells using SwiftUI views (and their backgrounds from a shape style), also allowing users to select multiple items.
     ///
-    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// - Note: If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a set that represents selected items.
     ///   - layout: The layout object to use for organizing items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
     ///   - cellBackground: The shape style to be used as the background of the cell.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view. If using a list layout, it's possible to use [`.swipeActions`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) on the content of this closure and it'll be bridged automatically.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, S>(
         _ data: Binding<ItemCollection>,
@@ -183,14 +178,13 @@ extension CollectionView where Cell == UICollectionViewCell {
     
     /// Creates a collection view that computes its cells using SwiftUI views (and their backgrounds from a shape style), optionally allowing users to select a single item.
     ///
-    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// - Note: If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
     ///   - layout: The layout object to use for organizing items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - cellContent: A view builder that creates the view for a single cell in the collection view.
     ///   - cellBackground: The shape style to be used as the background of the cell.
+    ///   - cellContent: A view builder that creates the view for a single cell in the collection view. If using a list layout, it's possible to use [`.swipeActions`](https://developer.apple.com/documentation/swiftui/view/swipeactions(edge:allowsfullswipe:content:)) on the content of this closure and it'll be bridged automatically.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
     public init<Content, S>(
         _ data: Binding<ItemCollection>,
