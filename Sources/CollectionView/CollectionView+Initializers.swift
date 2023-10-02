@@ -215,12 +215,12 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     // MARK: - List Layout, List Cell, Multiple Select
     
     /// Creates a collection view with a list layout that allows users to select multiple items.
-    ///
-    /// If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
+    /// 
+    /// - Important: The `state` parameter in the closures only take effect if used on iOS 15+.
+    /// - Note: If you'd like to allow multiple selection, but don't need to keep track of the selections, use `.constant([])` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a set that represents selected items.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to [`UICollectionViewListCell`](https://developer.apple.com/documentation/uikit/uicollectionviewlistcell).
     ///   - listAppearance: The overall appearance of the list.
     ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
     ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
@@ -229,12 +229,11 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     public init(
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
-//        cellType: Cell.Type = UICollectionViewListCell.self,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
-        contentConfiguration: @escaping (IndexPath, _ item: Item) -> UIListContentConfiguration,
-        backgroundConfiguration: ((IndexPath, _ item: Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        contentConfiguration: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIListContentConfiguration,
+        backgroundConfiguration: ((IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIBackgroundConfiguration)?,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
@@ -242,25 +241,29 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
         self.init(data,
                   selection: selection,
                   layout: UICollectionViewCompositionalLayout.list(using: listConfig)) { cell, indexPath, item in
-            cell.contentConfiguration = contentConfiguration(indexPath, item)
-            cell.backgroundConfiguration = backgroundConfiguration?(indexPath, item)
-            cellConfigurationHandler?(cell, indexPath, item)
+            if #available(iOS 15.0, *) {
+                cell.configurationUpdateHandler = { cell, state in
+                    cell.contentConfiguration = contentConfiguration(indexPath, state, item)
+                    cell.backgroundConfiguration = backgroundConfiguration?(indexPath, state, item)
+                    cellConfigurationHandler?(cell as! Cell, indexPath, state, item)
+                }
+            } else {
+                cell.contentConfiguration = contentConfiguration(indexPath, .init(traitCollection: .current), item)
+                cell.backgroundConfiguration = backgroundConfiguration?(indexPath, .init(traitCollection: .current), item)
+                cellConfigurationHandler?(cell, indexPath, .init(traitCollection: .current), item)
+            }
         }
-//                  cellType: cellType.self,
-//                  contentConfiguration: contentConfiguration,
-//                  backgroundConfiguration: backgroundConfiguration,
-//                  cellConfigurationHandler: cellConfigurationHandler)
     }
     
     // MARK: - List Layout, List Cell, Single/No Select
     
     /// Creates a collection view with a list layout that optionally allows users to select a single item.
-    ///
-    /// If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
+    /// 
+    /// - Important: The `state` parameter in the closures only take effect if used on iOS 15+.
+    /// - Note: If you'd like to allow single selection, but don't need to keep track of the selection, use `.constant(nil)` as input for `selection`.
     /// - Parameters:
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
-    ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to [`UICollectionViewListCell`](https://developer.apple.com/documentation/uikit/uicollectionviewlistcell).
     ///   - listAppearance: The overall appearance of the list.
     ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
     ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
@@ -269,12 +272,11 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     public init(
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
-//        cellType: Cell.Type = UICollectionViewListCell.self,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
-        contentConfiguration: @escaping (IndexPath, _ item: Item) -> UIListContentConfiguration,
-        backgroundConfiguration: ((IndexPath, _ item: Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, _ item: Item) -> Void)? = nil
+        contentConfiguration: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIListContentConfiguration,
+        backgroundConfiguration: ((IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIBackgroundConfiguration)?,
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
@@ -282,14 +284,17 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
         self.init(data,
                   selection: selection,
                   layout: UICollectionViewCompositionalLayout.list(using: listConfig)) { cell, indexPath, item in
-            cell.contentConfiguration = contentConfiguration(indexPath, item)
-            cell.backgroundConfiguration = backgroundConfiguration?(indexPath, item)
-            cellConfigurationHandler?(cell, indexPath, item)
+            if #available(iOS 15.0, *) {
+                cell.configurationUpdateHandler = { cell, state in
+                    cell.contentConfiguration = contentConfiguration(indexPath, state, item)
+                    cell.backgroundConfiguration = backgroundConfiguration?(indexPath, state, item)
+                    cellConfigurationHandler?(cell as! Cell, indexPath, state, item)
+                }
+            } else {
+                cell.contentConfiguration = contentConfiguration(indexPath, .init(traitCollection: .current), item)
+                cell.backgroundConfiguration = backgroundConfiguration?(indexPath, .init(traitCollection: .current), item)
+                cellConfigurationHandler?(cell, indexPath, .init(traitCollection: .current), item)
+            }
         }
-                  
-//                  cellType: cellType.self,
-//                  contentConfiguration: contentConfiguration,
-//                  backgroundConfiguration: backgroundConfiguration,
-//                  cellConfigurationHandler: cellConfigurationHandler)
     }
 }
