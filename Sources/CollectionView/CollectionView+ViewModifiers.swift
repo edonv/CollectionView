@@ -100,6 +100,12 @@ extension CollectionView {
         return new
     }
     
+    /// Adds closures for checking if a cell should be selected/deselected.
+    ///
+    /// When setting either item to `nil`, all items will be selected/deselected normally.
+    /// - Parameters:
+    ///   - shouldSelectItem: A closure that should return `true` if the specified item should be selected.
+    ///   - shouldDeselectItem: A closure that should return `true` if the specified item should be deselected.
     public func itemSelection(
         shouldSelectItem: CollectionViewBoolCallback? = nil,
         shouldDeselectItem: CollectionViewBoolCallback? = nil
