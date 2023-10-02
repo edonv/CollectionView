@@ -1,5 +1,8 @@
 # CollectionView
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fedonv%2FCollectionView%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/edonv/CollectionView)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fedonv%2FCollectionView%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/edonv/CollectionView)
+
 `CollectionView` is a SwiftUI wrapper of [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview).
 
 Have you ever wanted to make an app solely in SwiftUI, but the processing tradeoff of using [`Grid`](https://developer.apple.com/documentation/swiftui/grid), [`Lazy_Stack`](https://developer.apple.com/documentation/swiftui/grouping-data-with-lazy-stack-views), and [`Lazy_Grid`](https://developer.apple.com/documentation/swiftui/layout-fundamentals#dynamically-arranging-views-in-two-dimensions) are too significant? Wish you could stick with SwiftUI but still get the processing power of [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview)? Then try out CollectionView!
