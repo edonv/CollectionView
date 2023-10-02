@@ -107,6 +107,10 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     
     // MARK: - View Modifier Properties
     
+    // MARK: Misc Properties
+    
+    internal var collectionViewBackgroundColor: Color? = nil
+    
     public typealias CollectionViewBoolCallback = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Bool
     public typealias CollectionViewVoidCallback = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Void
     
@@ -145,6 +149,23 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     internal var cancelPrefetchingHandler: ((_ indexPaths: [IndexPath]) -> Void)? = nil
 }
 
+// MARK: - Convenience Functions
+
+extension CollectionView {
+    private func uiColor(from color: Color?, in context: Context) -> UIColor? {
+        guard let color else { return nil }
+        if #available(iOS 17.0, *) {
+            return UIColor(cgColor: color.resolve(in: context.environment).cgColor)
+        } else {
+            return if let cgColor = color.cgColor {
+                UIColor(cgColor: cgColor)
+            } else {
+                nil
+            }
+        }
+    }
+}
+
 // MARK: - UIViewRepresentable
 
 extension CollectionView: UIViewRepresentable {
@@ -162,6 +183,11 @@ extension CollectionView: UIViewRepresentable {
     }
     
     public func updateUIView(_ uiView: UICollectionView, context: Context) {
+        // Updates background color
+        if uiView.backgroundColor != uiColor(from: collectionViewBackgroundColor, in: context) {
+            uiView.backgroundColor = uiColor(from: collectionViewBackgroundColor, in: context)
+        }
+        
         // Check if this calls after initial loading
         updateDataSource(context.coordinator)
         
@@ -240,7 +266,9 @@ private struct TestView: View {
                     
                 } listConfigurationHandler: { config in
                     config.headerMode = .firstItemInSection
+//                    config.backgroundColor = .systemGroupedBackground
                 }
+                .backgroundColor(.systemRed)
                 .ignoresSafeArea()
                 .navigationTitle("Test")
                 .toolbar {

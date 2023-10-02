@@ -236,6 +236,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
+        listConfig.backgroundColor = .clear
         listConfigurationHandler?(&listConfig)
         
         self.init(data,
@@ -252,6 +253,12 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
                 cell.backgroundConfiguration = backgroundConfiguration?(indexPath, .init(traitCollection: .current), item)
                 cellConfigurationHandler?(cell, indexPath, .init(traitCollection: .current), item)
             }
+        }
+        
+        self.collectionViewBackgroundColor = if #available(iOS 15.0, *) {
+            Color(uiColor: listAppearance.defaultBackgroundColor)
+        } else {
+            Color(listAppearance.defaultBackgroundColor)
         }
     }
     
@@ -279,6 +286,7 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
         listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
+        listConfig.backgroundColor = .clear
         listConfigurationHandler?(&listConfig)
         
         self.init(data,
@@ -295,6 +303,12 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
                 cell.backgroundConfiguration = backgroundConfiguration?(indexPath, .init(traitCollection: .current), item)
                 cellConfigurationHandler?(cell, indexPath, .init(traitCollection: .current), item)
             }
+        }
+        
+        self.collectionViewBackgroundColor = if #available(iOS 15.0, *) {
+            Color(uiColor: listAppearance.defaultBackgroundColor)
+        } else {
+            Color(listAppearance.defaultBackgroundColor)
         }
     }
 }

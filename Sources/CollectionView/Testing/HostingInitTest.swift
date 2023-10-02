@@ -19,7 +19,7 @@ struct HostingInitTest: View {
         CollectionView(
             $items,
             selection: $selection,
-            layout: listLayout(),
+            layout: compositionalLayout(),
             cellBackground: LinearGradient(colors: [.blue, .green], startPoint: .topLeading, endPoint: .bottomTrailing)) { indexPath, state, item in
                 VStack {
                     Image(systemName: item.systemImageName)
@@ -63,6 +63,7 @@ struct HostingInitTest: View {
                     
                 }
             }
+            .backgroundStyle(BackgroundStyle.background)
 //            .itemSelection(shouldSelectItem: { _, indexPath in
 //                indexPath.item != 0
 //            })
