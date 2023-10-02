@@ -49,9 +49,7 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     ///   - selection: A binding to a set that represents selected items.
     ///   - layout: The layout object to use for organizing items.
     ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
-    ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
-    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
+    ///   - cellRegistrationHandler: A closure that handles the cell registration and configuration.
     public init(
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -77,9 +75,7 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
     ///   - layout: The layout object to use for organizing items.
     ///   - cellType: A subclass of `UICollectionViewCell` that the collection view should use. It defaults to `UICollectionViewCell`.
-    ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
-    ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
-    ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
+    ///   - cellRegistrationHandler: A closure that handles the cell registration and configuration.
     public init(
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
