@@ -16,6 +16,10 @@ It’s still a work in progress (especially with testing everything + documentat
 
 ## To-Do's
 
-- [ ] Implement `UICellConfigurationState`.
+- [x] Implement `UICellConfigurationState`.
+- [ ] Add support for section snapshots.
+    - [ ] Add support for expandable sections.
+- [ ] Add support for section headers/footers.
+- [ ] Refactor `cellRegistrationHandler` out of primary initializers and replace with a `UICollectionViewDiffableDataSource<Section, Item>.CellProvider` closure to allow for more complicated configurations. 
 - [ ] Finish documenting view modifiers.
 - [ ] Work on more concrete example for README/DocC articles.
