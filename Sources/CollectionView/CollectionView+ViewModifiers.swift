@@ -116,6 +116,8 @@ extension CollectionView {
         return new
     }
     
+    /// Sets if cell selection should be allowed.
+    /// - Parameter allowed: Whether cells should be allowed to be selected.
     public func shouldAllowSelection(
         _ allowed: Bool
     ) -> CollectionView {
