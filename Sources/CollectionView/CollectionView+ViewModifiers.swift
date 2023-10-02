@@ -87,11 +87,11 @@ extension CollectionView {
     
     // MARK: - Single Selection
     
-    /// Adds a modifier for this view that fires an action when a cell is selected.
+    /// Adds an action to perform when a cell is selected.
     /// - Parameters:
     ///   - handler: A closure to run when the cell is selected.
     ///   - indexPath: The index path of the cell that was selected.
-    /// - Returns: A view that fires an action when a cell is selected.
+    /// - Returns: A view that runs the given action when a cell is selected.
     public func onSelect(
         _ handler: CollectionViewVoidCallback?
     ) -> CollectionView {
