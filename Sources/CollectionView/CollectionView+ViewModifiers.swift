@@ -208,7 +208,7 @@ extension CollectionView {
     
     public func contextMenu<Preview: View>(
         menuIdentifier: NSCopying? = nil,
-        previewProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> Preview?)? = nil,
+        swiftUIProvider previewProvider: @escaping (_ indexPaths: [IndexPath], _ point: CGPoint) -> Preview?,
         actionProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint, [UIMenuElement]) -> UIMenu?)? = nil
     ) -> CollectionView {
         var new = self
@@ -216,8 +216,8 @@ extension CollectionView {
             UIContextMenuConfiguration(
                 identifier: menuIdentifier,
                 previewProvider: {
-                    guard let previewProvider else { return nil }
-                    return UIHostingController(rootView: previewProvider(indexPaths, point))
+                    guard let preview = previewProvider(indexPaths, point) else { return nil }
+                    return UIHostingController(rootView: preview)
                 },
                 actionProvider: { menuElements in
                     actionProvider?(indexPaths, point, menuElements)
@@ -229,7 +229,7 @@ extension CollectionView {
     
     public func contextMenu(
         menuIdentifier: NSCopying? = nil,
-        previewProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint) -> UIViewController?)? = nil,
+        uiKitProvider previewProvider: @escaping (_ indexPaths: [IndexPath], _ point: CGPoint) -> UIViewController?,
         actionProvider: ((_ indexPaths: [IndexPath], _ point: CGPoint, [UIMenuElement]) -> UIMenu?)? = nil
     ) -> CollectionView {
         var new = self
@@ -237,7 +237,7 @@ extension CollectionView {
             UIContextMenuConfiguration(
                 identifier: menuIdentifier,
                 previewProvider: {
-                    previewProvider?(indexPaths, point)
+                    previewProvider(indexPaths, point)
                 },
                 actionProvider: { menuElements in
                     actionProvider?(indexPaths, point, menuElements)
