@@ -76,6 +76,21 @@ extension CollectionView {
     
     // MARK: - Single Selection
     
+    @ViewBuilder
+    public func onSelect(perform action: @escaping (_ selectedItem: Item) -> Void) -> some View {
+        if #available(iOS 17, macCatalyst 17, macOS 14, tvOS 17, watchOS 10, visionOS 1, *) {
+            self.onChange(of: selection) { oldValue, newValue in
+                guard let newSelection = newValue.subtracting(oldValue).first else { return }
+                action(newSelection)
+            }
+        } else {
+            self.onChange(of: selection) { [selection] newValue in
+                guard let newSelection = newValue.subtracting(selection).first else { return }
+                action(newSelection)
+            }
+        }
+    }
+    
     public func itemSelection(
         shouldSelectItem: CollectionViewBoolCallback? = nil,
         shouldDeselectItem: CollectionViewBoolCallback? = nil
