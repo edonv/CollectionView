@@ -10,9 +10,9 @@ import SwiftUI
 extension CollectionView {
     // MARK: - Misc Properties
     
-    /// <#Description#>
-    /// - Parameter color: <#color description#>
-    /// - Returns: <#description#>
+    /// Sets the view’s background to a color.
+    /// - Parameter color: An instance of a color that is drawn behind the modified view.
+    /// - Returns: A view with the specified color drawn behind it.
     public func backgroundColor(
         _ color: UIColor
     ) -> CollectionView {
@@ -25,6 +25,9 @@ extension CollectionView {
         return new
     }
     
+    /// Sets the view’s background to a color.
+    /// - Parameter color: An instance of a color that is drawn behind the modified view.
+    /// - Returns: A view with the specified color drawn behind it.
     public func backgroundColor(
         _ color: Color?
     ) -> CollectionView {
@@ -33,6 +36,9 @@ extension CollectionView {
         return new
     }
     
+    /// Sets the view’s background to a style.
+    /// - Parameter style: An instance of a color that is drawn behind the modified view.
+    /// - Returns: A view with the specified color drawn behind it.
     @available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
     public func backgroundStyle<S>(
         _ style: S
@@ -42,6 +48,10 @@ extension CollectionView {
         }
     }
     
+    /// Layers the given view behind this view.
+    /// - Parameters:
+    ///   - background: The view to draw behind this view.
+    ///   - alignment: The alignment with a default value of [`center`](https://developer.apple.com/documentation/swiftui/alignment/center) that you use to position the background view.
     @available(iOS, deprecated: 14, obsoleted: 15)
     @available(macOS, deprecated: 11, obsoleted: 12)
     @available(macCatalyst, deprecated: 14, obsoleted: 15)
@@ -56,6 +66,11 @@ extension CollectionView {
         return new.background(background, alignment: alignment)
     }
     
+    /// Layers the views that you specify behind this view.
+    /// - Parameters:
+    ///   - alignment: The alignment that the modifier uses to position the implicit [`ZStack`](https://developer.apple.com/documentation/swiftui/zstack) that groups the background views. The default is [`center`](https://developer.apple.com/documentation/swiftui/alignment/center).
+    ///   - content: A [`ViewBuilder`](https://developer.apple.com/documentation/swiftui/viewbuilder) that you use to declare the views to draw behind this view, stacked in a cascading order from bottom to top. The last view that you list appears at the front of the stack.
+    /// - Returns: A view that uses the specified content as a background.
     @available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *)
     public func backgroundView<V>(
         alignment: Alignment = .center,
