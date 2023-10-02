@@ -19,7 +19,7 @@ struct HostingInitTest: View {
         CollectionView(
             $items,
             selection: $selection,
-            layout: layout()) { indexPath, state, item in
+            layout: listLayout()) { indexPath, state, item in
                 VStack {
                     Image(systemName: item.systemImageName)
                     Text(item.title)
@@ -27,6 +27,32 @@ struct HostingInitTest: View {
                 }
                 .font(state.isSelected ? .title : .body)
                 .disabled(indexPath.item == 0)
+                .swipeActions {
+                    Button(role: .destructive) {
+                        print("Test")
+                    } label: {
+                        Label("", systemImage: "trash")
+                    }
+                    Button(role: .destructive) {
+                        print("Test")
+                    } label: {
+                        Label("", systemImage: "trash")
+                    }
+                    .tint(.blue)
+                }
+                .swipeActions(edge: .leading) {
+                    Button(role: .destructive) {
+                        print("Test")
+                    } label: {
+                        Label("", systemImage: "trash")
+                    }
+                    Button(role: .destructive) {
+                        print("Test")
+                    } label: {
+                        Label("", systemImage: "trash")
+                    }
+                    .tint(.blue)
+                }
             } cellBackground: { _, state, _ in
                 Text("BACKGROUND")
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -49,7 +75,11 @@ struct HostingInitTest: View {
             }
     }
     
-    func layout() -> UICollectionViewLayout {
+    func listLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout.list(using: .init(appearance: .insetGrouped))
+    }
+    
+    func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             
@@ -72,7 +102,7 @@ struct HostingInitTest: View {
                                                    heightDimension: .fractionalHeight(0.4)),
                 subitems: [leadingItem, trailingGroup])
             let section = NSCollectionLayoutSection(group: nestedGroup)
-//            section.orthogonalScrollingBehavior = .continuous
+            section.orthogonalScrollingBehavior = .continuous
             return section
             
         }
