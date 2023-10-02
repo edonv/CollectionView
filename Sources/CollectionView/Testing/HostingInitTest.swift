@@ -114,7 +114,7 @@ struct HostingInitTest: View {
 
 @available(iOS 16, *)
 #Preview {
-    NavigationStack {
+    NavigationView {
         HostingInitTest()
             .navigationTitle("Test")
     }
