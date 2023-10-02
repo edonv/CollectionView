@@ -19,7 +19,8 @@ struct HostingInitTest: View {
         CollectionView(
             $items,
             selection: $selection,
-            layout: listLayout()) { indexPath, state, item in
+            layout: listLayout(),
+            cellBackground: LinearGradient(colors: [.blue, .green], startPoint: .topLeading, endPoint: .bottomTrailing)) { indexPath, state, item in
                 VStack {
                     Image(systemName: item.systemImageName)
                     Text(item.title)
@@ -53,10 +54,10 @@ struct HostingInitTest: View {
                     }
                     .tint(.blue)
                 }
-            } cellBackground: { _, state, _ in
-                Text("BACKGROUND")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    .background(state.isSwiped ? .orange : .yellow)
+//            } cellBackground: { _, state, _ in
+//                Text("BACKGROUND")
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+//                    .background(state.isSwiped ? .orange : .yellow)
             } cellConfigurationHandler: { cell, indexPath, _, _ in
                 if indexPath.item == 1 {
                     
