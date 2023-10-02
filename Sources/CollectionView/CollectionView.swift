@@ -58,9 +58,6 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
         layout: CollectionLayout,
         cellType: Cell.Type = UICollectionViewCell.self,
         cellRegistrationHandler: @escaping CellRegistration.Handler
-//        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
-//        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-//        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) {
         self._data = data
         self._selection = selection
@@ -68,9 +65,6 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
         self.multipleSelection = true
         self.layout = layout
         self.cellRegistration = .init(handler: cellRegistrationHandler)
-//        self.contentConfiguration = contentConfiguration
-//        self.backgroundConfiguration = backgroundConfiguration
-//        self.cellConfigurationHandler = cellConfigurationHandler
     }
     
     // MARK: - Standard Init, Single/No Select
@@ -92,9 +86,6 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
         layout: CollectionLayout,
         cellType: Cell.Type = UICollectionViewCell.self,
         cellRegistrationHandler: @escaping CellRegistration.Handler
-//        contentConfiguration: @escaping (IndexPath, Item) -> ContentConfiguration,
-//        backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?,
-//        cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)? = nil
     ) {
         self._data = data
         
@@ -112,9 +103,6 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
         self.multipleSelection = false
         self.layout = layout
         self.cellRegistration = .init(handler: cellRegistrationHandler)
-//        self.contentConfiguration = contentConfiguration
-//        self.backgroundConfiguration = backgroundConfiguration
-//        self.cellConfigurationHandler = cellConfigurationHandler
     }
     
     // MARK: - View Modifier Properties
