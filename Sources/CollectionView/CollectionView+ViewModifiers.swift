@@ -14,17 +14,13 @@ extension CollectionView {
     /// - Parameter color: <#color description#>
     /// - Returns: <#description#>
     public func backgroundColor(
-        _ color: UIColor?
+        _ color: UIColor
     ) -> CollectionView {
         var new = self
-        new.collectionViewBackgroundColor = if let color {
-            if #available(iOS 15.0, *) {
-                Color(uiColor: color)
-            } else {
-                Color(color)
-            }
+        new.collectionViewBackgroundColor = if #available(iOS 15.0, *) {
+            Color(uiColor: color)
         } else {
-            nil
+            Color(color)
         }
         return new
     }
