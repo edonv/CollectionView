@@ -217,12 +217,7 @@ private struct TestView: View {
             CollectionView(
                 $items,
                 selection: .constant([]),
-                listAppearance: .sidebar,
-                listConfigurationHandler: { config in
-                    config.headerMode = .firstItemInSection
-                },
-                contentConfiguration: { indexPath, string in
-                    
+                listAppearance: .sidebar) { indexPath, state, string in
                     if indexPath.item > 0 {
                         var config = UIListContentConfiguration.sidebarCell()
                         config.image = UIImage(systemName: "speaker.wave.3.fill")
@@ -235,25 +230,26 @@ private struct TestView: View {
                         config.text = string
                         return config
                     }
-                }, backgroundConfiguration: { indexPath, _ in
+                } backgroundConfiguration: { indexPath, state, _ in
                     if indexPath.item > 0 {
                         .listSidebarCell()
                     } else {
                         .listGroupedHeaderFooter()
                     }
-                }, cellConfigurationHandler: { cell, _, _ in
+                } cellConfigurationHandler: { cell, _, state, _ in
                     
+                } listConfigurationHandler: { config in
+                    config.headerMode = .firstItemInSection
                 }
-            )
-            .ignoresSafeArea()
-            .navigationTitle("Test")
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    Button("Test") {
-                        items[.main]?.append("Test \(items[.main]?.count ?? 0)")
+                .ignoresSafeArea()
+                .navigationTitle("Test")
+                .toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Test") {
+                            items[.main]?.append("Test \(items[.main]?.count ?? 0)")
+                        }
                     }
                 }
-            }
         }
     }
 }

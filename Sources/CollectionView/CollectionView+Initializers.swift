@@ -222,18 +222,18 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a set that represents selected items.
     ///   - listAppearance: The overall appearance of the list.
-    ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
     ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
+    ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
     public init(
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
-        listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
         contentConfiguration: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIListContentConfiguration,
         backgroundConfiguration: ((IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil,
+        listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)
@@ -265,18 +265,18 @@ extension CollectionView where CollectionLayout == UICollectionViewCompositional
     ///   - data: The data for populating the list.
     ///   - selection: A binding to a selected value, if provided. Otherwise, no selection will be allowed.
     ///   - listAppearance: The overall appearance of the list.
-    ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
     ///   - contentConfiguration: A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
     ///   - backgroundConfiguration: An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
     ///   - cellConfigurationHandler: An optional closure for configuring properties of each item's cell. See more here: ``CollectionView/CollectionView/cellConfigurationHandler``.
+    ///   - listConfigurationHandler: A closure for configuring the `UICollectionLayoutListConfiguration` of the layout.
     public init(
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         listAppearance: UICollectionLayoutListConfiguration.Appearance,
-        listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil,
         contentConfiguration: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIListContentConfiguration,
         backgroundConfiguration: ((IndexPath, _ state: UICellConfigurationState, _ item: Item) -> UIBackgroundConfiguration)?,
-        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil
+        cellConfigurationHandler: ((Cell, IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Void)? = nil,
+        listConfigurationHandler: ((_ config: inout UICollectionLayoutListConfiguration) -> Void)? = nil
     ) {
         var listConfig = UICollectionLayoutListConfiguration(appearance: listAppearance)
         listConfigurationHandler?(&listConfig)

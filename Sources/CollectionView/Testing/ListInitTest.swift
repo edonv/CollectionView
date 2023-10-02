@@ -18,9 +18,7 @@ struct ListInitTest: View {
         CollectionView(
             $items,
             selection: $selection,
-            listAppearance: .insetGrouped, listConfigurationHandler: { config in
-                config.headerMode = .firstItemInSection
-            }) { indexPath, item in
+            listAppearance: .insetGrouped) { indexPath, state, item in
                 let isHeader = indexPath.item == 0
                 var contentConfig: UIListContentConfiguration
                 if isHeader {
@@ -37,16 +35,18 @@ struct ListInitTest: View {
                 
                 
                 return contentConfig
-            } backgroundConfiguration: { indexPath, item in
+            } backgroundConfiguration: { indexPath, state, item in
                 if indexPath.item == 0 {
                     UIBackgroundConfiguration.listGroupedHeaderFooter()
                 } else {
                     UIBackgroundConfiguration.listGroupedCell()
                 }
-            } cellConfigurationHandler: { cell, indexPath, _ in
+            } cellConfigurationHandler: { cell, indexPath, state, _ in
 //                if indexPath.item == 1 {
                     cell.indentationLevel = indexPath.item
 //                }
+            } listConfigurationHandler: { config in
+                config.headerMode = .firstItemInSection
             }
             .itemSelection(shouldSelectItem: { _, indexPath in
                 indexPath.item != 0
