@@ -70,6 +70,10 @@ extension CollectionView {
         return new.background(alignment: alignment, content: content)
     }
     
+    // MARK: - Delegate Callbacks
+    
+    
+    
     // MARK: - Single Selection
     
     public func itemSelection(
