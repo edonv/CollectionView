@@ -107,8 +107,10 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     
     internal var collectionViewBackgroundColor: Color? = nil
     
-    public typealias CollectionViewBoolCallback = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Bool
-    public typealias CollectionViewVoidCallback = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Void
+    // MARK: Callback Properties
+    
+    public typealias CollectionViewBoolCallback = (UICollectionView, _ indexPath: IndexPath) -> Bool
+    public typealias CollectionViewVoidCallback = (UICollectionView, _ indexPath: IndexPath) -> Void
     
     // Single Selection
     
