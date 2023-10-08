@@ -32,14 +32,14 @@ public struct CollectionView<Section, Item, Cell, CollectionLayout>
     /// A closure for creating a [`UIContentConfiguration`](https://developer.apple.com/documentation/uikit/uicontentconfiguration) for each item's cell.
 //    internal var contentConfiguration: (IndexPath, Item) -> ContentConfiguration
     
-    // MARK: - Standard Init, Multiple Select
-    
     /// An optional closure for creating a [`UIBackgroundConfiguration`](https://developer.apple.com/documentation/uikit/uibackgroundconfiguration) for each item's cell.
 //    internal var backgroundConfiguration: ((IndexPath, Item) -> UIBackgroundConfiguration)?
     /// An optional closure for configuring properties of each item's cell.
     ///
     /// One possible use can be to set the cell's [`configurationUpdateHandler`] (https://developer.apple.com/documentation/uikit/uicollectionviewcell/3751733-configurationupdatehandler) property.
 //    public private(set) var cellConfigurationHandler: ((Cell, IndexPath, Item) -> Void)?
+    
+    // MARK: - Standard Init, Multiple Select
     
     /// Creates a collection view that allows users to select multiple items.
     ///
