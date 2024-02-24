@@ -16,6 +16,9 @@ let package = Package(
         .library(
             name: "CollectionView",
             targets: ["CollectionView"]),
+        .library(
+            name: "CompositionalLayoutBuilder",
+            targets: ["CompositionalLayoutBuilder"])
     ],
     dependencies: [
         .package(
@@ -29,8 +32,12 @@ let package = Package(
         .target(
             name: "CollectionView",
             dependencies: [
-                .product(name: "OrderedCollections", package: "swift-collections")
+                .product(name: "OrderedCollections", package: "swift-collections"),
+                .target(name: "CompositionalLayoutBuilder")
             ]
+        ),
+        .target(
+            name: "CompositionalLayoutBuilder"
         ),
         .testTarget(
             name: "CollectionViewTests",
