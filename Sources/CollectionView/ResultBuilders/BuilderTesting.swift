@@ -56,20 +56,20 @@ private struct LayoutBuilderTest: View {
             .padding()
             .background(.yellow)
         } layout: {
-            LayoutSection {
-                LayoutGroup(.horizontal, width: .fractionalWidth(1), height: .absolute(200)) {
-                    LayoutGroup(.vertical, width: .fractionalWidth(0.75), height: .fractionalHeight(1)) {
-                        LayoutItem(width: .fractionalWidth(1), height: .fractionalHeight(0.5))
+            CompositionalSection {
+                CompositionalGroup(.horizontal, width: .fractionalWidth(1), height: .absolute(200)) {
+                    CompositionalGroup(.vertical, width: .fractionalWidth(0.75), height: .fractionalHeight(1)) {
+                        CompositionalItem(width: .fractionalWidth(1), height: .fractionalHeight(0.5))
                             .repeating(count: 2)
                     }
                     
-                    LayoutItem(width: .fractionalWidth(0.25), height: .fractionalHeight(1))
+                    CompositionalItem(width: .fractionalWidth(0.25), height: .fractionalHeight(1))
                 }
             }
             
-            LayoutSection {
-                LayoutGroup(.horizontal, width: .fractionalWidth(1), height: .absolute(100)) {
-                    LayoutItem(width: .fractionalWidth(0.5), height: .fractionalHeight(1))
+            CompositionalSection {
+                CompositionalGroup(.horizontal, width: .fractionalWidth(1), height: .absolute(100)) {
+                    CompositionalItem(width: .fractionalWidth(0.5), height: .fractionalHeight(1))
                 }
             }
             .orthogonalScrollingBehavior(.continuous)

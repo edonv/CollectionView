@@ -21,6 +21,10 @@ let package = Package(
         .package(
             url: "https://github.com/apple/swift-collections.git",
             .upToNextMajor(from: "1.0.0")
+        ),
+        .package(
+            url: "https://github.com/edonv/CompositionalLayoutBuilder.git",
+            .upToNextMajor(from: "0.0.0")
         )
     ],
     targets: [
@@ -30,6 +34,7 @@ let package = Package(
             name: "CollectionView",
             dependencies: [
                 .product(name: "OrderedCollections", package: "swift-collections"),
+                .product(name: "CompositionalLayoutBuilder", package: "CompositionalLayoutBuilder")
             ]
         ),
         .testTarget(
