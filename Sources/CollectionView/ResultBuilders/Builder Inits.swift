@@ -8,7 +8,6 @@
 import SwiftUI
 import CompositionalLayoutBuilder
 
-public typealias CollectionViewLayout = UICollectionViewCompositionalLayout
 public typealias CollectionViewLayoutHandler = () -> CollectionViewLayout
 
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)

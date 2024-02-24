@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+public typealias CollectionViewLayout = UICollectionViewCompositionalLayout
+
 @resultBuilder
 public struct CollectionLayoutBuilder {
     public typealias FinalResult = CollectionViewLayout
