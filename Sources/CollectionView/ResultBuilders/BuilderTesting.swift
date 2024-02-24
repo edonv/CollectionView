@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CompositionalLayoutBuilder
 import OrderedCollections
 
 #if os(iOS)

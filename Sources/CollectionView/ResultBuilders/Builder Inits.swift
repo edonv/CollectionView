@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CompositionalLayoutBuilder
 
 public typealias CollectionViewLayout = UICollectionViewCompositionalLayout
 public typealias CollectionViewLayoutHandler = () -> CollectionViewLayout
