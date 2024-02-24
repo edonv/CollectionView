@@ -15,10 +15,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "CollectionView",
-            targets: ["CollectionView"]),
-        .library(
-            name: "CompositionalLayoutBuilder",
-            targets: ["CompositionalLayoutBuilder"])
+            targets: ["CollectionView"])
     ],
     dependencies: [
         .package(
@@ -33,11 +30,7 @@ let package = Package(
             name: "CollectionView",
             dependencies: [
                 .product(name: "OrderedCollections", package: "swift-collections"),
-                .target(name: "CompositionalLayoutBuilder")
             ]
-        ),
-        .target(
-            name: "CompositionalLayoutBuilder"
         ),
         .testTarget(
             name: "CollectionViewTests",
