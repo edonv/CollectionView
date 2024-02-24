@@ -20,6 +20,8 @@ It’s still a work in progress (especially with testing everything + documentat
 ## To-Do's
 
 - [x] Implement `UICellConfigurationState`.
+- [ ] Add documentation to `@CollectionLayoutBuilder` initializers.
+- [ ] Condense initializers somehow...
 - [ ] Add support for section snapshots.
     - [ ] Add support for expandable sections.
 - [ ] Add support for section headers/footers.
