@@ -20,6 +20,7 @@ It’s still a work in progress (especially with testing everything + documentat
 ## To-Do's
 
 - [x] Implement `UICellConfigurationState`.
+- [ ] Add support for `NSCollectionView`.
 - [ ] Make sure `CollectionView` isn't updating itself more than necessary? or is it not because it's a `RepresentableView`?
 - [ ] Condense initializers somehow...
 - [ ] Add support for section snapshots.
