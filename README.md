@@ -21,7 +21,6 @@ It’s still a work in progress (especially with testing everything + documentat
 
 - [x] Implement `UICellConfigurationState`.
 - [ ] Make sure `CollectionView` isn't updating itself more than necessary? or is it not because it's a `RepresentableView`?
-- [ ] Add documentation to `@CollectionLayoutBuilder` initializers.
 - [ ] Condense initializers somehow...
 - [ ] Add support for section snapshots.
     - [ ] Add support for expandable sections.
