@@ -12,7 +12,7 @@ public typealias CollectionViewLayoutHandler = () -> CollectionViewLayout
 
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)
 extension CollectionView where Cell == UICollectionViewCell, CollectionLayout == CollectionViewLayout {
-    init<Content>(
+    public init<Content>(
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
         @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
@@ -27,7 +27,7 @@ extension CollectionView where Cell == UICollectionViewCell, CollectionLayout ==
         )
     }
     
-    init<Content>(
+    public init<Content>(
         _ data: Binding<ItemCollection>,
         selection: Binding<Item?>? = nil,
         @ViewBuilder cellContent: @escaping (IndexPath, _ state: UICellConfigurationState, _ item: Item) -> Content,
