@@ -35,7 +35,8 @@ let package = Package(
             dependencies: [
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .product(name: "CompositionalLayoutBuilder", package: "CompositionalLayoutBuilder")
-            ]
+            ],
+            resources: [.copy("PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
             name: "CollectionViewTests",
