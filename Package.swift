@@ -24,7 +24,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/edonv/CompositionalLayoutBuilder.git",
-            .upToNextMajor(from: "0.0.0")
+            .upToNextMinor(from: "0.0.0")
         )
     ],
     targets: [
