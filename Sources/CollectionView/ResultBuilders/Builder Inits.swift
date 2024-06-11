@@ -11,7 +11,7 @@ import CompositionalLayoutBuilder
 public typealias CollectionViewLayoutHandler = () -> CompositionalLayout
 
 @available(iOS 16, macCatalyst 16, tvOS 16, visionOS 1, *)
-extension CollectionView where Cell == UICollectionViewCell, CollectionLayout == CompositionalLayout {
+extension CollectionView where Cell == UICollectionViewCell, CollectionLayout == CompositionalLayout.Layout {
     public init<Content>(
         _ data: Binding<ItemCollection>,
         selection: Binding<Set<Item>>,
@@ -22,7 +22,7 @@ extension CollectionView where Cell == UICollectionViewCell, CollectionLayout ==
         self.init(
             data,
             selection: selection,
-            layout: layout(),
+            layout: layout().layout,
             cellContent: cellContent
         )
     }
@@ -37,7 +37,7 @@ extension CollectionView where Cell == UICollectionViewCell, CollectionLayout ==
         self.init(
             data,
             selection: selection,
-            layout: layout(),
+            layout: layout().layout,
             cellContent: cellContent
         )
     }
